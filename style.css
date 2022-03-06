@@ -1,4 +1,8 @@
 
+.container {
+    display: flex;
+    justify-content: center;
+}
 .headerWrapper {
     display: flex;
     justify-content: center;
@@ -6,9 +10,11 @@
 
 .calculatorWrapper {
     display: flex;
-    justify-content: center;
+    align-items: center;
     max-width: 300px;
     min-width: 300px;
+    flex-direction: column;
+    /* border:solid red; */
     
     
 }
@@ -22,6 +28,20 @@
     justify-content:center;
     max-width: 100px;
     min-width: 100px;
+    height: 30px;
     flex-direction: column;
+    /* border: solid red; */
     
+}
+.buttonWrapper {
+    display: flex;
+}
+.operatorWrapper {
+    display: flex;
+    max-width: 50px;
+    min-width: 50px;
+    
+}
+.operatorBtn {
+    height: 20px;
 }
