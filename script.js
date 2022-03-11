@@ -6,6 +6,15 @@ let selectedOperator = ""
 let firstSum = true
 let firstInt = 0; 
 let secondInt = 0;
+let runningResult = 0;
+function disableDotBtn () {
+    btnDot.disabled = true;
+}
+function enableDotBtn () {
+    btnDot.disabled = false
+}
+
+
 // declaring operator functions
 function add(a,b){
     return a + b
@@ -55,6 +64,8 @@ const btnEquals = document.querySelector("#equals")
 
 // event listeners for each button to change the display and store the value in the firstNumber and secondNumber variables
 display.textContent = "0";
+
+
 btnZero.addEventListener("click", () => {
     if (afterOperator === false) {
         firstNumber.push("0");
@@ -142,26 +153,33 @@ btnDot.addEventListener("click", () => {
     }else if (afterOperator === true) {
         secondNumber.push(".")
         display.textContent = secondNumber.join("");
-}})
+    }
+    disableDotBtn ()
+})
 // event listeners for the operator buttons
 
 btnMultiply.addEventListener("click", () => {
     afterOperator = true;
     selectedOperator = "*";
+    enableDotBtn()
 })
 btnDivide.addEventListener("click", () => {
     afterOperator = true;
     selectedOperator = "/";
+    enableDotBtn()
 })
 btnSubtract.addEventListener("click", () => {
     afterOperator = true;
     selectedOperator = "-";
+    enableDotBtn()
 })
 btnAdd.addEventListener("click", () => {
     afterOperator = true;
     selectedOperator = "+";
+    enableDotBtn()
 })
 btnEquals.addEventListener("click", ()=>{
+    enableDotBtn()
     // extract the numbers from the arrays and parse as floats
     if (firstSum == true){ //run this if it is the first operation
     let firstNumberJoined = firstNumber.join("")
@@ -172,24 +190,29 @@ btnEquals.addEventListener("click", ()=>{
     let a = firstInt
     let b = secondInt
     display.textContent = operate(a,operator,b)
-    let result = operate(a,operator,b)   
-    firstInt = result; 
+    runningResult = operate(a,operator,b)   
+    firstInt = runningResult; 
     secondInt = 0
     firstSum = false
-    console.log(firstInt, secondInt, display.textContent)
-    }else if (firstSum == false) { //run this if not the first operation
-        let a = firstInt
-        secondInt = secondNumber.join("")
+    // clear the arrays for the next operation
+    firstNumber = [] 
+    secondNumber = []
+
+    //run this if not the first operation
+
+    }else if (firstSum == false) { 
+        // a needs to be the second number and b needs to be the new second number
+        let a = runningResult
+        let secondNumberJoined = secondNumber.join("")
+        let b = parseFloat(secondNumberJoined)
+        secondNumber =[]
         let operator = selectedOperator
         display.textContent = operate(a,operator,b)
-        // this bit is not working
+        runningResult = operate(a,operator,b)
+        console.log(a,b)
     }
 })
-// First operation is working. Need to sort following operations. ?is the second number an array? Do I need to join the second number again?
-// How can I get it to work so 12 + 7  - 5 * 3 - each operator after the first operator (+) returns the sum
-// !!The orignial arrays (firstNumber and secondNumber) need to be set back to empty on equals click function
-// When afterOperator = true (ie, after the first operation) - the result variable needs to be used in place of firstNumber[] because that array is now empty.
-// The secondNumber[] will need to be joined again and then parsed as the new secondInt for operation
-// Further operations - each operator click will also need to call operate() function to cumulatively operate 
+
+// need to add ability to chain operations without clicking = inbetween
 
 
