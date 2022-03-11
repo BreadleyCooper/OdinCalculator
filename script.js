@@ -2,17 +2,48 @@
 let firstNumber = []
 let secondNumber = []
 let afterOperator = false
-let selectedOperator = ""
+let previousOperator = null
+let selectedOperator = null
 let firstSum = true
-let firstInt = 0; 
-let secondInt = 0;
-let runningResult = 0;
+let firstInt = null; 
+let secondInt = null;
+let runningResult = null;
 function disableDotBtn () {
     btnDot.disabled = true;
 }
 function enableDotBtn () {
     btnDot.disabled = false
 }
+function firstOperation () {
+     //run this if it is the first operation
+     if (selectedOperator !== null) {
+    let firstNumberJoined = firstNumber.join("")
+    let secondNumberJoined = secondNumber.join("")
+    firstInt = parseFloat(firstNumberJoined)
+    secondInt = parseFloat(secondNumberJoined)
+    let operator = selectedOperator
+    let a = firstInt
+    let b = secondInt
+    display.textContent = operate(a,operator,b)
+    runningResult = operate(a,operator,b)   
+    firstInt = runningResult; 
+    secondInt = 0
+    firstSum = false
+    // clear the arrays for the next operation
+    firstNumber = [] 
+    secondNumber = []
+    }}
+function secondOperation (){
+    if (selectedOperator !== null && previousOperator !== null) {
+    let a = runningResult
+    let secondNumberJoined = secondNumber.join("")
+    let b = parseFloat(secondNumberJoined)
+    secondNumber =[]
+    let operator = selectedOperator
+    display.textContent = operate(a,operator,b)
+    runningResult = operate(a,operator,b)
+    console.log(a,b)
+}}
 
 
 // declaring operator functions
@@ -38,8 +69,6 @@ function operate(a, operator, b){
         return multiply(a,b)
     }else if (operator == "/") {
         return divide(a,b)
-    }else {
-        return alert("That didn't work")
 }}
 // Targeting the display div for manipluation
 const display = document.querySelector(".display")
@@ -154,65 +183,68 @@ btnDot.addEventListener("click", () => {
         secondNumber.push(".")
         display.textContent = secondNumber.join("");
     }
-    disableDotBtn ()
+    disableDotBtn ();
 })
 // event listeners for the operator buttons
 
 btnMultiply.addEventListener("click", () => {
+    if(afterOperator == true) {
+        if (runningResult == null) {
+            firstOperation()
+        } else secondOperation()
+    }
     afterOperator = true;
     selectedOperator = "*";
-    enableDotBtn()
+    enableDotBtn();
 })
 btnDivide.addEventListener("click", () => {
+    if(afterOperator == true) {
+        if (runningResult == null) {
+            firstOperation()
+        } else secondOperation()
+    }
     afterOperator = true;
     selectedOperator = "/";
     enableDotBtn()
 })
 btnSubtract.addEventListener("click", () => {
+    if(afterOperator == true) {
+        if (runningResult == null) {
+            firstOperation()
+        } else secondOperation()
+    }
     afterOperator = true;
     selectedOperator = "-";
-    enableDotBtn()
+    enableDotBtn();
 })
 btnAdd.addEventListener("click", () => {
+    if(afterOperator == true) {
+        if (runningResult == null) {
+            firstOperation()
+        } else secondOperation()
+    }
     afterOperator = true;
     selectedOperator = "+";
-    enableDotBtn()
+    enableDotBtn();
 })
 btnEquals.addEventListener("click", ()=>{
-    enableDotBtn()
-    // extract the numbers from the arrays and parse as floats
-    if (firstSum == true){ //run this if it is the first operation
-    let firstNumberJoined = firstNumber.join("")
-    let secondNumberJoined = secondNumber.join("")
-    firstInt = parseFloat(firstNumberJoined)
-    secondInt = parseFloat(secondNumberJoined)
-    let operator = selectedOperator
-    let a = firstInt
-    let b = secondInt
-    display.textContent = operate(a,operator,b)
-    runningResult = operate(a,operator,b)   
-    firstInt = runningResult; 
-    secondInt = 0
-    firstSum = false
-    // clear the arrays for the next operation
-    firstNumber = [] 
-    secondNumber = []
-
-    //run this if not the first operation
-
+    enableDotBtn();
+    if (firstSum == true) {
+        firstOperation();
     }else if (firstSum == false) { 
-        // a needs to be the second number and b needs to be the new second number
-        let a = runningResult
-        let secondNumberJoined = secondNumber.join("")
-        let b = parseFloat(secondNumberJoined)
-        secondNumber =[]
-        let operator = selectedOperator
-        display.textContent = operate(a,operator,b)
-        runningResult = operate(a,operator,b)
-        console.log(a,b)
+        secondOperation()
     }
 })
-
-// need to add ability to chain operations without clicking = inbetween
-
-
+btnClear.addEventListener("click", () =>{
+    runningResult = null;
+    display.textContent = "0"
+    firstInt = null
+    secondInt = null
+    firstNumber = []
+    secondNumber = []
+    firstSum = true
+    afterOperator = false
+    previousOperator = null
+    selectedOperator = null
+})
+// need to add something so equals doesnt do anything if there is no second number
