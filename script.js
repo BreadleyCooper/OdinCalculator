@@ -1,4 +1,5 @@
 // Declaring the variables
+//empty arrays that will hold the first and second integers
 let firstNumber = [] 
 let secondNumber = []
 let afterOperator = false
@@ -23,6 +24,9 @@ function firstOperation () {
     let operator = selectedOperator
     let a = firstInt
     let b = secondInt
+    if (b == 0 && operator == "/") {
+        display.textContent = "Good try"
+    } else 
     display.textContent = operate(a,operator,b)
     runningResult = operate(a,operator,b)   
     firstInt = runningResult; 
@@ -40,6 +44,9 @@ function secondOperation (){
     let b = parseFloat(secondNumberJoined)
     secondNumber =[]
     let operator = selectedOperator
+    if (b == 0 && operator == "/") {
+        display.textContent = "Good try"
+    } else 
     display.textContent = operate(a,operator,b)
     runningResult = operate(a,operator,b)
     console.log(a,b)
@@ -244,6 +251,6 @@ btnClear.addEventListener("click", () =>{
     secondNumber = []
     firstSum = true
     afterOperator = false
-    // previousOperator = null
     selectedOperator = null
 })
+// need to implement rounding and maximum of 9 input length to fit in display
