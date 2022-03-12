@@ -50,7 +50,8 @@
 }
 .operatorBtn {
     max-width: 70px;
-    min-width: 70px
+    min-width: 70px;
+    background-color: rgb(28, 187, 187);
 
 }
 .operatorWrapperOne {
@@ -66,16 +67,22 @@
 .equalsWrapper {
  display: flex;
  max-width: 50px;
-    min-width: 50px;   
+ min-width: 50px; 
 }
 #equals {
     min-width: 142px;
     max-width: 142px;
     min-height: 100px;
+    font-size: 2em;
 }
 .display {
     font-size: 4em;
     font-family: Arial, Helvetica, sans-serif;
+    direction: rtl;
+}
+.leftBtns {
+    min-width: 40px;
+    max-width: 30px;
 }
 button {
     padding: 15px 15px;
@@ -116,7 +123,7 @@ button {
     }
     
     button:active {
-      background-color: #c85000;
+      background-color: rgb(28, 187, 187);
       box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
       transform: translateY(0);
     }

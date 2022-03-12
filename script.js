@@ -1,8 +1,7 @@
-// Declaring the variables that will contain a and b
-let firstNumber = []
+// Declaring the variables
+let firstNumber = [] 
 let secondNumber = []
 let afterOperator = false
-let previousOperator = null
 let selectedOperator = null
 let firstSum = true
 let firstInt = null; 
@@ -16,7 +15,7 @@ function enableDotBtn () {
 }
 function firstOperation () {
      //run this if it is the first operation
-     if (selectedOperator !== null) {
+    if (secondNumber.length !== 0) {
     let firstNumberJoined = firstNumber.join("")
     let secondNumberJoined = secondNumber.join("")
     firstInt = parseFloat(firstNumberJoined)
@@ -32,9 +31,10 @@ function firstOperation () {
     // clear the arrays for the next operation
     firstNumber = [] 
     secondNumber = []
+    console.log("first operation performed, firstInt is",firstInt,"secondInt is",secondInt)
     }}
 function secondOperation (){
-    if (selectedOperator !== null && previousOperator !== null) {
+    if (selectedOperator !== null && secondNumber.length !== 0) {
     let a = runningResult
     let secondNumberJoined = secondNumber.join("")
     let b = parseFloat(secondNumberJoined)
@@ -244,7 +244,6 @@ btnClear.addEventListener("click", () =>{
     secondNumber = []
     firstSum = true
     afterOperator = false
-    previousOperator = null
+    // previousOperator = null
     selectedOperator = null
 })
-// need to add something so equals doesnt do anything if there is no second number
