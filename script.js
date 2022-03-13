@@ -8,6 +8,14 @@ let firstSum = true
 let firstInt = null; 
 let secondInt = null;
 let runningResult = null;
+const display = document.querySelector(".display");
+// a function to prevent the display spilling over*not working
+function checkDisplayLength () {
+    let displayValue = display.textContent 
+    if (displayValue.length > 9) {
+    display.textContent = displayValue.substring(0,9)
+}}
+
 function disableDotBtn () {
     btnDot.disabled = true;
 }
@@ -25,7 +33,15 @@ function firstOperation () {
     let a = firstInt
     let b = secondInt
     if (b == 0 && operator == "/") {
-        display.textContent = "Good try"
+        display.textContent = "Good try";
+        runningResult = null;
+        firstInt = null
+        secondInt = null
+        firstNumber = []
+        secondNumber = []
+        firstSum = true
+        afterOperator = false
+        selectedOperator = null
     } else 
     display.textContent = operate(a,operator,b)
     runningResult = operate(a,operator,b)   
@@ -35,8 +51,9 @@ function firstOperation () {
     // clear the arrays for the next operation
     firstNumber = [] 
     secondNumber = []
-    console.log("first operation performed, firstInt is",firstInt,"secondInt is",secondInt)
-    }}
+    }
+    checkDisplayLength ()
+}
 function secondOperation (){
     if (selectedOperator !== null && secondNumber.length !== 0) {
     let a = runningResult
@@ -45,12 +62,21 @@ function secondOperation (){
     secondNumber =[]
     let operator = selectedOperator
     if (b == 0 && operator == "/") {
-        display.textContent = "Good try"
+        display.textContent = "Good try";
+        runningResult = null;
+        firstInt = null
+        secondInt = null
+        firstNumber = []
+        secondNumber = []
+        firstSum = true
+        afterOperator = false
+        selectedOperator = null
     } else 
     display.textContent = operate(a,operator,b)
     runningResult = operate(a,operator,b)
-    console.log(a,b)
-}}
+}
+checkDisplayLength ()
+}
 
 
 // declaring operator functions
@@ -78,7 +104,7 @@ function operate(a, operator, b){
         return divide(a,b)
 }}
 // Targeting the display div for manipluation
-const display = document.querySelector(".display")
+
 // Targeting the buttons for manipulation
 const btnZero = document.querySelector("#zero")
 const btnOne = document.querySelector("#one")
@@ -109,7 +135,8 @@ btnZero.addEventListener("click", () => {
     }else if (afterOperator === true) {
         secondNumber.push("0")
         display.textContent = secondNumber.join("");  
-}})
+}checkDisplayLength ()
+})
 btnOne.addEventListener("click", () => {
     if (afterOperator === false) {
         firstNumber.push("1");
@@ -117,7 +144,8 @@ btnOne.addEventListener("click", () => {
     }else if (afterOperator === true) {
         secondNumber.push("1")
         display.textContent = secondNumber.join("");
-}})
+}
+checkDisplayLength ()})
 btnTwo.addEventListener("click", () => {
     if (afterOperator === false) {
         firstNumber.push("2");
@@ -125,7 +153,8 @@ btnTwo.addEventListener("click", () => {
     }else if (afterOperator === true) {
         secondNumber.push("2")
         display.textContent = secondNumber.join("");
-}})
+}checkDisplayLength ()
+})
 btnThree.addEventListener("click", () => {
     if (afterOperator === false) {
         firstNumber.push("3");
@@ -133,7 +162,8 @@ btnThree.addEventListener("click", () => {
     }else if (afterOperator === true) {
         secondNumber.push("3")
         display.textContent = secondNumber.join("");
-}})
+}checkDisplayLength ()
+})
 btnFour.addEventListener("click", () => {
     if (afterOperator === false) {
         firstNumber.push("4");
@@ -141,7 +171,8 @@ btnFour.addEventListener("click", () => {
     }else if (afterOperator === true) {
         secondNumber.push("4")
         display.textContent = secondNumber.join("");
-}})
+}checkDisplayLength ()
+})
 btnFive.addEventListener("click", () => {
     if (afterOperator === false) {
         firstNumber.push("5");
@@ -149,7 +180,8 @@ btnFive.addEventListener("click", () => {
     }else if (afterOperator === true) {
         secondNumber.push("5")
         display.textContent = secondNumber.join("");
-}})
+}
+checkDisplayLength ()})
 btnSix.addEventListener("click", () => {
     if (afterOperator === false) {
         firstNumber.push("6");
@@ -157,7 +189,8 @@ btnSix.addEventListener("click", () => {
     }else if (afterOperator === true) {
         secondNumber.push("6")
         display.textContent = secondNumber.join("");
-}})
+}checkDisplayLength ()
+})
 btnSeven.addEventListener("click", () => {
     if (afterOperator === false) {
         firstNumber.push("7");
@@ -165,7 +198,8 @@ btnSeven.addEventListener("click", () => {
     }else if (afterOperator === true) {
         secondNumber.push("7")
         display.textContent = secondNumber.join("");
-}})
+}checkDisplayLength ()
+})
 btnEight.addEventListener("click", () => {
     if (afterOperator === false) {
         firstNumber.push("8");
@@ -173,7 +207,8 @@ btnEight.addEventListener("click", () => {
     }else if (afterOperator === true) {
         secondNumber.push("8")
         display.textContent = secondNumber.join("");
-}})
+}checkDisplayLength ()
+})
 btnNine.addEventListener("click", () => {
     if (afterOperator === false) {
         firstNumber.push("9");
@@ -181,7 +216,8 @@ btnNine.addEventListener("click", () => {
     }else if (afterOperator === true) {
         secondNumber.push("9")
         display.textContent = secondNumber.join("");
-}})
+}checkDisplayLength ()
+})
 btnDot.addEventListener("click", () => {
     if (afterOperator === false) {
         firstNumber.push(".");
@@ -253,4 +289,7 @@ btnClear.addEventListener("click", () =>{
     afterOperator = false
     selectedOperator = null
 })
+if (display.textContent.length > 9) {
+    display.textContent = display.substring(0,8)
+}
 // need to implement rounding and maximum of 9 input length to fit in display
